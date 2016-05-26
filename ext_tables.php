@@ -1,5 +1,7 @@
 <?php
-use AHoffmeyer\RobotstxtEditor\Controller\EditorModuleController;
+
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
@@ -10,7 +12,7 @@ if (TYPO3_MODE === 'BE') {
 	/**
 	 * Registers a Backend Module
 	 */
-	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+	ExtensionUtility::registerModule(
 		'AHoffmeyer.' . $_EXTKEY,
 		'tools',
 		'editorModule',
@@ -23,6 +25,11 @@ if (TYPO3_MODE === 'BE') {
 			'icon'   => 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/thumbs.svg',
 			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_editor.xlf',
 		)
+	);
+
+	ExtensionManagementUtility::registerAjaxHandler (
+		'EditorModuleController::checkFileContent',
+		'AHoffmeyer\\RobotstxtEditor\\Controller\\EditorModuleController->checkFileContent'
 	);
 
 }

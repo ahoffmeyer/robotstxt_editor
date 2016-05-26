@@ -3,6 +3,7 @@
 namespace AHoffmeyer\RobotstxtEditor\Controller;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Http\AjaxRequestHandler;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -194,6 +195,18 @@ class EditorModuleController extends ActionController
     public function getContents()
     {
         return strip_tags($this->request->getArgument('contents'));
+    }
+
+    /**
+     * @param array $params
+     * @param AjaxRequestHandler|NULL $ajaxObj
+     * @return string
+     */
+    public function checkFileContent($params = [], AjaxRequestHandler &$ajaxObj = null)
+    {
+        $file = $params['request']->getQueryParams();
+        $checkFile = PATH_site . $file['data'];
+        $ajaxObj->addContent('editorFileContent', nl2br(file_get_contents($checkFile)));
     }
 
 }
