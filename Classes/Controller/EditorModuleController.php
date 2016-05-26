@@ -74,6 +74,7 @@ class EditorModuleController extends ActionController
      * Create robots.txt if not exists
      * The file existance will be checked above
      *
+     * @param string $contents
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
      */
     public function createAction($contents = '')
@@ -113,10 +114,17 @@ class EditorModuleController extends ActionController
      */
     public function createBackup()
     {
+        // if there is no TS setting, then nothing should be done
         if ( ! $this->settings['backup']) {
             return;
         }
 
+        // check if the checkbox is set
+        if ( ! $this->request->getArgument('backup')) {
+            return;
+        }
+
+        // create the path to the backupdir if it's not there already
         if ( ! is_dir($this->settings['backupPath'])) {
             GeneralUtility::mkdir_deep($this->backupPath);
         }
@@ -124,6 +132,7 @@ class EditorModuleController extends ActionController
         $backupFile = $this->backupPath . self::FILENAME . '.bak.'. time() . '.txt';
 
         GeneralUtility::upload_copy_move($this->file, $backupFile);
+        
         if ( ! file_exists($this->backupPath . '.htaccess')) {
             GeneralUtility::upload_copy_move(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR .'_.htaccess', $this->backupPath . '.htaccess');
         }
