@@ -2,12 +2,8 @@
 
 namespace AHoffmeyer\RobotstxtEditor\Controller;
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Error\Exception;
 use TYPO3\CMS\Core\Http\AjaxRequestHandler;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Messaging\FlashMessageService;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -22,6 +18,11 @@ class EditorModuleController extends ActionController
     protected $file = '';
 
     /**
+     * @var array
+     */
+    protected $backupFiles = [];
+
+    /**
      * @var string
      */
     protected $backupPath = '';
@@ -33,6 +34,8 @@ class EditorModuleController extends ActionController
     {
         $this->file = PATH_site . self::FILENAME;
         $this->backupPath = PATH_site . $this->settings['backup_path'];
+
+        $this->backupFiles = GeneralUtility::getFilesInDir($this->backupPath, 'txt');
     }
 
     /**
@@ -48,7 +51,9 @@ class EditorModuleController extends ActionController
         }
         // otherwise ask if file should be created
         else {
-            $this->view->assign('createFile', true);
+            $this->view->assign('createFile', [
+                true, ['files' => $this->backupFiles]
+            ]);
         }
     }
 
@@ -57,7 +62,7 @@ class EditorModuleController extends ActionController
      */
     public function listAction()
     {
-        $files = GeneralUtility::getFilesInDir($this->backupPath, 'txt');
+        $files = $this->backupFiles;
         $times = $this->getFileModificationTime($files);
 
         $this->view->assign('files',  $this->mergeFileAndTimeArray($files,  $times));

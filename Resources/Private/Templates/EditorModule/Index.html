@@ -9,8 +9,9 @@ xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
                 <h1>Edit your robots.txt</h1>
                 <hr>
 
-                <f:if condition="{createFile}">
+                <f:if condition="{createFile.0}">
                         <f:then>
+                                <p>No robots.txt in root directory. Do you want to create one?</p>
                                 <f:link.action
                                         controller="EditorModule"
                                         action="create"
@@ -18,13 +19,16 @@ xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
                                 >
                                         Create robots.txt
                                 </f:link.action>
-                                <f:link.action
-                                        controller="EditorModule"
-                                        action="list"
-                                        class="btn btn-info"
-                                >
-                                        robots.txt backups
-                                </f:link.action>
+                                <f:if condition="{createFile.1.files -> f:count()} > 0">
+                                        <strong>or</strong>
+                                        <f:link.action
+                                                controller="EditorModule"
+                                                action="list"
+                                                class="btn btn-info"
+                                        >
+                                                Restore robots.txt backup
+                                        </f:link.action>
+                                </f:if>
                         </f:then>
                         <f:else>
 
