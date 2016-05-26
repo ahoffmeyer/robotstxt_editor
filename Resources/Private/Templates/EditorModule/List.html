@@ -4,6 +4,7 @@
     <f:layout name="Backend" />
 
     <f:section name="Main">
+        <f:flashMessages renderMode="div" />
         <br>
 
         <h1>Your robots.txt backups</h1>
@@ -39,7 +40,7 @@
                         <f:link.action
                                 action="remove"
                                 controller="EditorModule"
-                                arguments="{file: '{file}'}"
+                                arguments="{file: '{file.name}'}"
                                 class="btn btn-danger"
                         >
                             <i class="fa fa-times" aria-hidden="true"></i>

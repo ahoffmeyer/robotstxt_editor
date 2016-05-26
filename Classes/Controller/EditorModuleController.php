@@ -3,7 +3,10 @@
 namespace AHoffmeyer\RobotstxtEditor\Controller;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Error\Exception;
 use TYPO3\CMS\Core\Http\AjaxRequestHandler;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -195,6 +198,22 @@ class EditorModuleController extends ActionController
     public function getContents()
     {
         return strip_tags($this->request->getArgument('contents'));
+    }
+
+    /**
+     * @param $file
+     * @throws Exception
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+     */
+    public function removeAction($file)
+    {
+        if ( ! unlink($this->backupPath . $file)) {
+            throw new Exception('File coiuld not be deleted');
+        }
+
+        $this->addFlashMessage("File {$file} was deleted from system");
+
+        $this->redirect('list');
     }
 
     /**
