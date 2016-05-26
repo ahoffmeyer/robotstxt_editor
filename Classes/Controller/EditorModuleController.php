@@ -125,7 +125,7 @@ class EditorModuleController extends ActionController
 
         GeneralUtility::upload_copy_move($this->file, $backupFile);
         if ( ! file_exists($this->backupPath . '.htaccess')) {
-            GeneralUtility::upload_copy_move(__DIR__ . DIRECTORY_SEPARATOR . '_.htaccess', $this->backupPath . '.htaccess');
+            GeneralUtility::upload_copy_move(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR .'_.htaccess', $this->backupPath . '.htaccess');
         }
     }
 
