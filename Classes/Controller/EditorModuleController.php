@@ -16,11 +16,17 @@ class EditorModuleController extends ActionController
     protected $file = '';
 
     /**
+     * @var string
+     */
+    protected $backupPath = '';
+
+    /**
      * Init Action
      */
     public function initializeAction()
     {
-        $this->file = PATH_site . DIRECTORY_SEPARATOR . self::FILENAME;
+        $this->file = PATH_site . self::FILENAME;
+        $this->backupPath = PATH_site . $this->settings['backup_path'];
     }
 
     /**
@@ -70,10 +76,12 @@ class EditorModuleController extends ActionController
      *
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
      */
-    public function createAction()
+    public function createAction($contents = '')
     {
         // then write the file
-        GeneralUtility::writeFile($this->file, '');
+        GeneralUtility::writeFile($this->file, $contents);
+        // create backup if set
+        $this->createBackup();
         // after all redirect to the beginning
         $this->redirect('index');
     }
@@ -95,11 +103,39 @@ class EditorModuleController extends ActionController
      */
     public function updateAction()
     {
-        $contents = strip_tags($this->request->getArgument('contents'));
+        $this->createAction($this->getContents());
+    }
 
-        GeneralUtility::writeFile($this->file, $contents);
+    /**
+     * Creates backupfiles of the current robots.txt
+     * additionally the backup folder will be created with .htaccess that the folder can't be
+     * opened from outside
+     */
+    public function createBackup()
+    {
+        if ( ! $this->settings['backup']) {
+            return;
+        }
 
-        $this->redirect('index');
+        if ( ! is_dir($this->settings['backupPath'])) {
+            GeneralUtility::mkdir_deep($this->backupPath);
+        }
+
+        $backupFile = $this->backupPath . self::FILENAME . '.bak.'. time() . '.txt';
+
+        GeneralUtility::upload_copy_move($this->file, $backupFile);
+        if ( ! file_exists($this->backupPath . '.htaccess')) {
+            GeneralUtility::upload_copy_move(__DIR__ . DIRECTORY_SEPARATOR . '_.htaccess', $this->backupPath . '.htaccess');
+        }
+    }
+
+    /**
+     * @return string
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     */
+    public function getContents()
+    {
+        return strip_tags($this->request->getArgument('contents'));
     }
 
 }

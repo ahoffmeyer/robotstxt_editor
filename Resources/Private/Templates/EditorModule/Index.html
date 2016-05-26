@@ -5,6 +5,8 @@ xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
         <f:section name="Main">
 
+                {_all -> f:debug()}
+
                 <f:if condition="{createFile}">
                         <f:then>
                                 <f:link.action
@@ -25,6 +27,7 @@ xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
                                 >
                                         <div class="form-group">
                                                 <f:form.textarea
+                                                        id="robotstxt_editor"
                                                         rows="10"
                                                         name="contents"
                                                         class="form-control"
@@ -42,12 +45,72 @@ xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
                                         <f:form.button
                                                 type="submit"
                                                 class="btn btn-success"
+                                                id="updateFile"
                                         >
                                                 Update robots.txt
                                         </f:form.button>
+
+                                        <f:if condition="{settings.backup}">
+                                                <div class="backup pull-right">
+                                                        <label for="backup">Save backupfile</label>
+                                                        <f:form.checkbox id="backup" value="1" name="backup" />
+                                                </div>
+                                        </f:if>
                                 </f:form>
+
+                                <f:render section="script" />
+                                <f:render section="style" />
                         </f:else>
                 </f:if>
 
+        </f:section>
+
+        <f:section name="script">
+                <script>
+                        ;(function($) {
+
+                                "use strict";
+
+                                var App = {
+                                        editor: $('#robotstxt_editor').val(),
+
+                                        init: function() {
+                                                this.clickButton();
+                                        },
+
+                                        trimRows: function() {
+                                                var rows = $('#robotstxt_editor').val().split("\n");
+
+                                                return rows.map(function(row, index) {
+                                                        if (row) {
+                                                                return row.trim();
+                                                        }
+                                                });
+                                        },
+
+                                        clickButton: function() {
+                                                $('#updateFile').on('click', function() {
+                                                        $('#robotstxt_editor').val(this.trimRows().join("\n"));
+                                                }.bind(this));
+                                        }
+                                };
+
+                                App.init();
+
+                        })(TYPO3.jQuery);
+                </script>
+        </f:section>
+
+        <f:section name="style">
+                <style>
+                        #robotstxt_editor {
+                                line-height: 2rem;
+                                background: #e1e1e1;
+                                padding: 1rem;
+                        }
+                        label {
+                                cursor: pointer;
+                        }
+                </style>
         </f:section>
 </html>

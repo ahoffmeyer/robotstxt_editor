@@ -1,0 +1,9 @@
+
+ # Module configuration
+module.tx_robotstxteditor {
+	settings {
+        // add checkbox to backup file
+        backup = 1
+        backup_path = robots.bak/
+    }
+}
