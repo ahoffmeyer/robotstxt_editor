@@ -217,6 +217,25 @@ class EditorModuleController extends ActionController
     }
 
     /**
+     * @param string $file
+     */
+    public function restoreAction($file)
+    {
+        $restore = $this->backupPath . $file;
+        // first of all, save the old robots txt
+        $backupFile = $this->backupPath . self::FILENAME . '-restored.bak.'. time() . '.txt';
+        GeneralUtility::upload_copy_move($this->file, $backupFile);
+
+        // then remove the current robots.txt
+        unlink($this->file);
+
+        // at the end copy the restore file to root dir
+        GeneralUtility::upload_copy_move($restore, $this->file);
+
+        $this->redirect('index');
+    }
+
+    /**
      * @param array $params
      * @param AjaxRequestHandler|NULL $ajaxObj
      * @return string
