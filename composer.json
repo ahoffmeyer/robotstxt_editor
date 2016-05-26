@@ -1,0 +1,27 @@
+{
+    "name": "ahoffmeyer/robotstxt-editor",
+    "description": "A simple robots.txt editor as TYPO3 backend module",
+    "type": "typo3-cms-extension",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Andreas Hoffmeyer",
+            "email": "hallo@andreas-hoffmeyer.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AHoffmeyer\\RobotstxtEditor\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AHoffmeyer\\RobotstxtEditor\\Tests\\": "Tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "replace": {
+        "robotstxt_editor": "self.version",
+        "typo3-ter/robotstxt_editor": "self.version"
+    }
+}

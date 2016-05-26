@@ -1,0 +1,1 @@
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:robotstxt_editor/Configuration/TypoScript/constants.txt">

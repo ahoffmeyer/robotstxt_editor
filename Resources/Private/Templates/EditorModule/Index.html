@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+        <f:layout name="Backend" />
+
+        <f:section name="Main">
+
+                <f:if condition="{createFile}">
+                        <f:then>
+                                <f:link.action
+                                        controller="EditorModule"
+                                        action="create"
+                                        class="btn btn-success"
+                                >
+                                        Create robots.txt
+                                </f:link.action>
+                        </f:then>
+                        <f:else>
+
+                                <f:form
+                                        action="update"
+                                        controller="EditorModule"
+                                        arguments="{contents: contents}"
+                                        method="POST"
+                                >
+                                        <div class="form-group">
+                                                <f:form.textarea
+                                                        rows="10"
+                                                        name="contents"
+                                                        class="form-control"
+                                                        value="{contents -> f:format.raw()}"
+                                                >{contents -> f:format.raw()}</f:form.textarea>
+                                        </div>
+
+                                        <f:link.action
+                                                controller="EditorModule"
+                                                action="delete"
+                                                class="btn btn-danger"
+                                        >
+                                                Delete robots.txt
+                                        </f:link.action>
+                                        <f:form.button
+                                                type="submit"
+                                                class="btn btn-success"
+                                        >
+                                                Update robots.txt
+                                        </f:form.button>
+                                </f:form>
+                        </f:else>
+                </f:if>
+
+        </f:section>
+</html>
