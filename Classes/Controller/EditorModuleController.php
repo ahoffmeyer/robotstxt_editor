@@ -206,7 +206,7 @@ class EditorModuleController extends ActionController
     }
 
     /**
-     * @param $file
+     * @param string $file
      * @throws Exception
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
      */
