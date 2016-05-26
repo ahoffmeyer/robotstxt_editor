@@ -2,6 +2,8 @@
 
 namespace AHoffmeyer\RobotstxtEditor\Controller;
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -44,6 +46,39 @@ class EditorModuleController extends ActionController
         else {
             $this->view->assign('createFile', true);
         }
+    }
+
+    public function listAction()
+    {
+        $files = GeneralUtility::getFilesInDir($this->backupPath, 'txt');
+        $times = $this->getFileModificationTime($files);
+
+        $this->view->assign('files',  $this->mergeFileAndTimeArray($files,  $times));
+    }
+
+    public function mergeFileAndTimeArray($files, $times)
+    {
+        $result = [];
+
+        foreach ($files as $key => $file) {
+            $result[] = [
+                'name' => $file,
+                'time' => $times[$key]
+            ];
+        }
+
+        return $result;
+    }
+
+    public function getFileModificationTime(array $filesarray)
+    {
+        $files = [];
+
+        foreach ($filesarray as $key => $file) {
+            $files[$key] = date($this->settings['list']['timeFormat'], filemtime($this->backupPath . $file));
+        }
+
+        return $files;
     }
 
     /**
@@ -132,7 +167,7 @@ class EditorModuleController extends ActionController
         $backupFile = $this->backupPath . self::FILENAME . '.bak.'. time() . '.txt';
 
         GeneralUtility::upload_copy_move($this->file, $backupFile);
-        
+
         if ( ! file_exists($this->backupPath . '.htaccess')) {
             GeneralUtility::upload_copy_move(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR .'_.htaccess', $this->backupPath . '.htaccess');
         }

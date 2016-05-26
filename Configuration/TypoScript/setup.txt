@@ -5,5 +5,10 @@ module.tx_robotstxteditor {
         // add checkbox to backup file
         backup = 1
         backup_path = robots.bak/
+
+        list {
+            showModificationTime = 1
+            timeFormat = H:i:s - d.m.y
+        }
     }
 }

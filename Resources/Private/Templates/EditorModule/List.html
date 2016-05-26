@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+    <f:layout name="Backend" />
+
+    <f:section name="Main">
+        <br>
+
+        <h1>Your robots.txt backups</h1>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <f:if condition="{settings.list.showModificationTime}">
+                        <th>Creation date</th>
+                    </f:if>
+                    <th class="text-right">Edit</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <f:for each="{files}" as="file" iteration="i">
+                <tr>
+                    <td>
+                        # {i.cycle}
+                    </td>
+                    <td>
+                        {file.name}
+                    </td>
+                    <f:if condition="{settings.list.showModificationTime}">
+                        <td>
+                            {file.time}
+                        </td>
+                    </f:if>
+
+                    <td class="text-right">
+                        <f:link.action
+                                action="remove"
+                                controller="EditorModule"
+                                arguments="{file: '{file}'}"
+                                class="btn btn-danger"
+                        >
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </f:link.action>
+
+                        <f:link.action
+                                action="restore"
+                                controller="EditorModule"
+                                arguments="{file: '{file}'}"
+                                class="btn btn-default"
+                                title="Restore backup"
+                        >
+                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                        </f:link.action>
+
+                        <f:link.action
+                                action="check"
+                                controller="EditorModule"
+                                arguments="{file: '{file}'}"
+                                class="btn btn-success"
+                        >
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </f:link.action>
+                    </td>
+                </tr>
+            </f:for>
+            </tbody>
+
+        </table>
+
+        <div>
+            <f:link.action
+                    action="index"
+                    controller="EditorModule"
+                    class="btn btn-success"
+            >
+                &lt; Back to list
+            </f:link.action>
+        </div>
+
+        <style>
+            @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
+
+            .fa {
+                font-size: 2rem;
+            }
+        </style>
+    </f:section>
+
+</html>

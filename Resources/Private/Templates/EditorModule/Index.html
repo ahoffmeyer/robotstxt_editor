@@ -4,6 +4,10 @@ xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
         <f:layout name="Backend" />
 
         <f:section name="Main">
+                <br>
+
+                <h1>Edit your robots.txt</h1>
+                <hr>
 
                 <f:if condition="{createFile}">
                         <f:then>
@@ -39,6 +43,14 @@ xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
                                                 class="btn btn-danger"
                                         >
                                                 Delete robots.txt
+                                        </f:link.action>
+
+                                        <f:link.action
+                                                controller="EditorModule"
+                                                action="list"
+                                                class="btn btn-info"
+                                        >
+                                                List robots.txt backups
                                         </f:link.action>
                                         <f:form.button
                                                 type="submit"

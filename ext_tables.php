@@ -16,7 +16,7 @@ if (TYPO3_MODE === 'BE') {
 		'editorModule',
 		'',
 		array(
-			'EditorModule' => 'index, create, delete, update',
+			'EditorModule' => 'index, create, delete, update, list, remove, restore, check',
 		),
 		array(
 			'access' => 'user,group',
