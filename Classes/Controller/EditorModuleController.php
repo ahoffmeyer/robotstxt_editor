@@ -227,7 +227,9 @@ class EditorModuleController extends ActionController
         GeneralUtility::upload_copy_move($this->file, $backupFile);
 
         // then remove the current robots.txt
-        unlink($this->file);
+        if (file_exists($this->file)) {
+            unlink($this->file);
+        }
 
         // at the end copy the restore file to root dir
         GeneralUtility::upload_copy_move($restore, $this->file);
