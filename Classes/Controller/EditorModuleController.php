@@ -48,6 +48,9 @@ class EditorModuleController extends ActionController
         }
     }
 
+    /**
+     * list files and file mod times in view
+     */
     public function listAction()
     {
         $files = GeneralUtility::getFilesInDir($this->backupPath, 'txt');
@@ -56,7 +59,12 @@ class EditorModuleController extends ActionController
         $this->view->assign('files',  $this->mergeFileAndTimeArray($files,  $times));
     }
 
-    public function mergeFileAndTimeArray($files, $times)
+    /**
+     * @param array $files
+     * @param array $times
+     * @return array
+     */
+    public function mergeFileAndTimeArray(array $files, array $times)
     {
         $result = [];
 
@@ -70,6 +78,10 @@ class EditorModuleController extends ActionController
         return $result;
     }
 
+    /**
+     * @param array $filesarray
+     * @return array
+     */
     public function getFileModificationTime(array $filesarray)
     {
         $files = [];
@@ -117,7 +129,9 @@ class EditorModuleController extends ActionController
         // then write the file
         GeneralUtility::writeFile($this->file, $contents);
         // create backup if set
-        $this->createBackup();
+        if ($this->request->hasArgument('backup')) {
+            $this->createBackup();
+        }
         // after all redirect to the beginning
         $this->redirect('index');
     }
