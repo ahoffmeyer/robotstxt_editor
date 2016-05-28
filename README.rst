@@ -8,7 +8,7 @@ Installation
 
 Using composer
 
-    $> composer require ahoffmeyer/robotstxt_editor
+    $> composer require ahoffmeyer/robotstxt-editor
 
 Then activate it via Extension Manager.
 

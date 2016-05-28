@@ -4,6 +4,7 @@
     "type": "typo3-cms-extension",
     "license": "GPL-2.0+",
     "version": "0.1.0",
+    "keywords": ["TYPO3", "Extension", "SEO"],
     "authors": [
         {
             "name": "Andreas Hoffmeyer",
@@ -15,7 +16,7 @@
             "AHoffmeyer\\RobotstxtEditor\\": "Classes/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "beta",
     "replace": {
         "robotstxt_editor": "self.version",
         "typo3-ter/robotstxt_editor": "self.version"
