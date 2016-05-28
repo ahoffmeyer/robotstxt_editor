@@ -18,7 +18,8 @@ if (TYPO3_MODE === 'BE') {
 		'editorModule',
 		'',
 		array(
-			'EditorModule' => 'index, create, delete, update, list, remove, restore, check',
+			'EditorModule' => 'index, create, delete, update',
+			'BackupModule' => 'list, remove, restore, check',
 		),
 		array(
 			'access' => 'user,group',
@@ -28,8 +29,8 @@ if (TYPO3_MODE === 'BE') {
 	);
 
 	ExtensionManagementUtility::registerAjaxHandler (
-		'EditorModuleController::checkFileContent',
-		'AHoffmeyer\\RobotstxtEditor\\Controller\\EditorModuleController->checkFileContent'
+		'BackupModuleController::checkFileContent',
+		'AHoffmeyer\\RobotstxtEditor\\Controller\\BackupModuleController->checkFileContentAction'
 	);
 
 }

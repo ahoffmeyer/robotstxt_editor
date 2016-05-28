@@ -22,8 +22,8 @@ xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
                                 <f:if condition="{createFile.1.files -> f:count()} > 0">
                                         <strong>or</strong>
                                         <f:link.action
-                                                controller="EditorModule"
                                                 action="list"
+                                                controller="BackupModule"
                                                 class="btn btn-info"
                                         >
                                                 Restore robots.txt backup
@@ -57,7 +57,7 @@ xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
                                         </f:link.action>
 
                                         <f:link.action
-                                                controller="EditorModule"
+                                                controller="BackupModule"
                                                 action="list"
                                                 class="btn btn-info"
                                         >

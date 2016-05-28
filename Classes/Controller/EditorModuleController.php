@@ -2,8 +2,7 @@
 
 namespace AHoffmeyer\RobotstxtEditor\Controller;
 
-use TYPO3\CMS\Core\Error\Exception;
-use TYPO3\CMS\Core\Http\AjaxRequestHandler;
+use AHoffmeyer\RobotstxtEditor\Utility\EditorUtilityInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -28,13 +27,25 @@ class EditorModuleController extends ActionController
     protected $backupPath = '';
 
     /**
+     * @var EditorUtilityInterface
+     */
+    protected $editorUtility = null;
+
+    /**
+     * @param EditorUtilityInterface $editorUtility
+     */
+    public function injectEditorUtilityInterface(EditorUtilityInterface $editorUtility)
+    {
+        $this->editorUtility = $editorUtility;
+    }
+
+    /**
      * Init Action
      */
     public function initializeAction()
     {
         $this->file = PATH_site . self::FILENAME;
         $this->backupPath = PATH_site . $this->settings['backup_path'];
-
         $this->backupFiles = GeneralUtility::getFilesInDir($this->backupPath, 'txt');
     }
 
@@ -44,8 +55,8 @@ class EditorModuleController extends ActionController
     public function indexAction()
     {
         // If robots.txt already exists, get the file contents and push them to the view
-        if ($this->checkIfRobotsTxtAlreadyExists()) {
-            $contents = $this->getContentsFromRobotsTxt();
+        if ($this->editorUtility->checkIfRobotsTxtAlreadyExists($this->file)) {
+            $contents = $this->editorUtility->getContentsFromRobotsTxt($this->file);
 
             $this->view->assign('contents', $contents);
         }
@@ -55,75 +66,6 @@ class EditorModuleController extends ActionController
                 true, ['files' => $this->backupFiles]
             ]);
         }
-    }
-
-    /**
-     * list files and file mod times in view
-     */
-    public function listAction()
-    {
-        $files = $this->backupFiles;
-        $times = $this->getFileModificationTime($files);
-
-        $this->view->assign('files',  $this->mergeFileAndTimeArray($files,  $times));
-    }
-
-    /**
-     * @param array $files
-     * @param array $times
-     * @return array
-     */
-    public function mergeFileAndTimeArray(array $files, array $times)
-    {
-        $result = [];
-
-        foreach ($files as $key => $file) {
-            $result[] = [
-                'name' => $file,
-                'time' => $times[$key]
-            ];
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param array $filesarray
-     * @return array
-     */
-    public function getFileModificationTime(array $filesarray)
-    {
-        $files = [];
-
-        foreach ($filesarray as $key => $file) {
-            $files[$key] = date($this->settings['list']['timeFormat'], filemtime($this->backupPath . $file));
-        }
-
-        return $files;
-    }
-
-    /**
-     * Check if there is already a robots.txt
-     *
-     * @return bool
-     */
-    public function checkIfRobotsTxtAlreadyExists()
-    {
-        if ( ! file_exists($this->file)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Read the file contents and return them
-     *
-     * @return string
-     */
-    public function getContentsFromRobotsTxt()
-    {
-        return GeneralUtility::getUrl($this->file);
     }
 
     /**
@@ -162,7 +104,9 @@ class EditorModuleController extends ActionController
      */
     public function updateAction()
     {
-        $this->createAction($this->getContents());
+        $contents = strip_tags($this->request->getArgument('contents'));
+
+        $this->createAction($contents);
     }
 
     /**
@@ -194,64 +138,6 @@ class EditorModuleController extends ActionController
         if ( ! file_exists($this->backupPath . '.htaccess')) {
             GeneralUtility::upload_copy_move(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR .'_.htaccess', $this->backupPath . '.htaccess');
         }
-    }
-
-    /**
-     * @return string
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
-     */
-    public function getContents()
-    {
-        return strip_tags($this->request->getArgument('contents'));
-    }
-
-    /**
-     * @param string $file
-     * @throws Exception
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
-     */
-    public function removeAction($file)
-    {
-        if ( ! unlink($this->backupPath . $file)) {
-            throw new Exception('File coiuld not be deleted');
-        }
-
-        $this->addFlashMessage("File {$file} was deleted from system");
-
-        $this->redirect('list');
-    }
-
-    /**
-     * @param string $file
-     */
-    public function restoreAction($file)
-    {
-        $restore = $this->backupPath . $file;
-        // first of all, save the old robots txt
-        $backupFile = $this->backupPath . self::FILENAME . '-restored.bak.'. time() . '.txt';
-        GeneralUtility::upload_copy_move($this->file, $backupFile);
-
-        // then remove the current robots.txt
-        if (file_exists($this->file)) {
-            unlink($this->file);
-        }
-
-        // at the end copy the restore file to root dir
-        GeneralUtility::upload_copy_move($restore, $this->file);
-
-        $this->redirect('index');
-    }
-
-    /**
-     * @param array $params
-     * @param AjaxRequestHandler|NULL $ajaxObj
-     * @return string
-     */
-    public function checkFileContent($params = [], AjaxRequestHandler &$ajaxObj = null)
-    {
-        $file = $params['request']->getQueryParams();
-        $checkFile = PATH_site . $file['data'];
-        $ajaxObj->addContent('editorFileContent', nl2br(file_get_contents($checkFile)));
     }
 
 }
