@@ -38,6 +38,14 @@
                     arguments="{contents: contents}"
                     method="POST"
             >
+
+                <f:if condition="{settings.backup}">
+                    <div class="backup pull-right">
+                        <label for="backup">Save backupfile</label>
+                        <f:form.checkbox id="backup" value="1" name="backup" />
+                    </div>
+                </f:if>
+
                 <div class="form-group">
                     <f:form.textarea
                             id="robotstxt_editor"
@@ -47,35 +55,32 @@
                     >{contents -> f:format.raw()}</f:form.textarea>
                 </div>
 
-                <f:link.action
-                        controller="EditorModule"
-                        action="delete"
-                        class="btn btn-danger"
-                >
-                    Delete robots.txt
-                </f:link.action>
+                <div class="pull-left">
+                    <f:link.action
+                            controller="EditorModule"
+                            action="delete"
+                            class="btn btn-danger"
+                    >
+                        <i class="fa fa-times"></i> Delete robots.txt
+                    </f:link.action>
+                </div>
 
-                <f:link.action
-                        controller="BackupModule"
-                        action="list"
-                        class="btn btn-info"
-                >
-                    List robots.txt backups
-                </f:link.action>
-                <f:form.button
-                        type="submit"
-                        class="btn btn-success"
-                        id="updateFile"
-                >
-                    Update robots.txt
-                </f:form.button>
-
-                <f:if condition="{settings.backup}">
-                    <div class="backup pull-right">
-                        <label for="backup">Save backupfile</label>
-                        <f:form.checkbox id="backup" value="1" name="backup" />
-                    </div>
-                </f:if>
+                <div class="pull-right">
+                    <f:link.action
+                            controller="BackupModule"
+                            action="list"
+                            class="btn btn-info"
+                    >
+                        <i class="fa fa-list" aria-hidden="true"></i> List backups
+                    </f:link.action>
+                    <f:form.button
+                            type="submit"
+                            class="btn btn-success"
+                            id="updateFile"
+                    >
+                        <i class="fa fa-plus" aria-hidden="true"></i> Update robots.txt
+                    </f:form.button>
+                </div>
             </f:form>
 
             <f:render section="script" />
