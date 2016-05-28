@@ -1,4 +1,7 @@
-<f:be.container includeCssFiles="{99 : '{settings.cssFile}', 100: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'}" loadExtJs="false" loadJQuery="true" enableClickMenu="false" pageTitle="Robots.txt Editor">
+<f:be.container includeCssFiles="{
+    0: '{f:uri.resource(path: \'{settings.cssFile}\', extensionName: \'robotstxt_editor\')}',
+    1: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'
+}" loadExtJs="false" loadJQuery="true" enableClickMenu="false" pageTitle="Robots.txt Editor">
     <div class="container">
         <f:render section="Main" arguments="{_all}" />
     </div>

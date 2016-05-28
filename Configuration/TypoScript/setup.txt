@@ -2,7 +2,7 @@
  # Module configuration
 module.tx_robotstxteditor {
 	settings {
-        cssFile = /typo3conf/ext/robotstxt_editor/Resources/Public/Stylesheet/main.css
+        cssFile = Stylesheet/main.css
         // add checkbox to backup file
         backup = 1
         backup_path = robots.bak/

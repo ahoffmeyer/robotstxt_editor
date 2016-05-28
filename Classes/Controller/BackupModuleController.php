@@ -18,6 +18,7 @@ namespace AHoffmeyer\RobotstxtEditor\Controller;
 use TYPO3\CMS\Core\Error\Exception;
 use TYPO3\CMS\Core\Http\AjaxRequestHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class BackupModuleController extends EditorModuleController
 {
@@ -41,10 +42,12 @@ class BackupModuleController extends EditorModuleController
     public function removeAction($file)
     {
         if ( ! unlink($this->backupPath . $file)) {
-            throw new Exception('File coiuld not be deleted');
+            throw new Exception('File could not be deleted');
         }
 
-        $this->addFlashMessage("File {$file} was deleted from system");
+        $message = LocalizationUtility::translate('label.backup_deleted', 'robotstxt_editor', [$file]);
+
+        $this->addFlashMessage($message);
 
         $this->redirect('list');
     }

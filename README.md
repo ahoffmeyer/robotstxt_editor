@@ -22,7 +22,8 @@ The following TypoScript can be adjusted to your needs:
     module.tx_robotstxteditor {
         settings {
             # CSS file for nice styles
-            cssFile = /typo3conf/ext/robotstxt_editor/Resources/Public/Stylesheet/main.css
+            # if you wish to add your own CSS notice that you'll need the full path relative to TYPO3 root directory
+            cssFile = Stylesheet/main.css
             
             # Should a backup possible in the end
             backup = 1

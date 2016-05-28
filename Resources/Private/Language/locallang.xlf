@@ -6,6 +6,57 @@
 			<trans-unit id="tx_robotstxteditor_domain_model_editor">
 				<source>Editor</source>
 			</trans-unit>
+			<trans-unit id="label.backups_headline">
+				<source>Your robots.txt backups</source>
+			</trans-unit>
+			<trans-unit id="label.editor_headline">
+				<source>Edit your robots.txt</source>
+			</trans-unit>
+			<trans-unit id="label.create_file">
+				<source>Create robots.txt</source>
+			</trans-unit>
+			<trans-unit id="label.list_backups">
+				<source>Restore robots.txt backup</source>
+			</trans-unit>
+			<trans-unit id="label.creation_date">
+				<source>Creation data</source>
+			</trans-unit>
+			<trans-unit id="label.edit">
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="label.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="label.delete">
+				<source>delete</source>
+			</trans-unit>
+			<trans-unit id="label.restore">
+				<source>restore</source>
+			</trans-unit>
+			<trans-unit id="label.preview">
+				<source>preview</source>
+			</trans-unit>
+			<trans-unit id="label.back">
+				<source>&lt; Back to list</source>
+			</trans-unit>
+			<trans-unit id="label.update">
+				<source>Update robots.txt</source>
+			</trans-unit>
+			<trans-unit id="label.list">
+				<source>List backups</source>
+			</trans-unit>
+			<trans-unit id="label.delete_file">
+				<source>Delete robots.txt</source>
+			</trans-unit>
+			<trans-unit id="label.save_file">
+				<source>Save backupfile</source>
+			</trans-unit>
+			<trans-unit id="label.no_file">
+				<source>No robots.txt in root directory. Do you want to create one?</source>
+			</trans-unit>
+			<trans-unit id="label.backup_deleted" approved="yes">
+				<source>File %s was deleted from system</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

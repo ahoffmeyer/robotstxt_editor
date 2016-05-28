@@ -7,17 +7,17 @@
     <f:flashMessages renderMode="div" />
     <br>
 
-    <h1>Your robots.txt backups</h1>
+    <h1><f:translate key="label.backups_headline" /></h1>
     <hr>
     <table class="table">
         <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
+            <th><f:translate key="label.name" /></th>
             <f:if condition="{settings.list.showModificationTime}">
-                <th>Creation date</th>
+                <th><f:translate key="label.creation_date" /></th>
             </f:if>
-            <th class="text-right">Edit</th>
+            <th class="text-right"><f:translate key="label.edit" /></th>
         </tr>
         </thead>
 
@@ -42,8 +42,10 @@
                             controller="BackupModule"
                             arguments="{file: '{file.name}'}"
                             class="btn btn-danger"
+                            title="delete backup file"
                     >
                         <i class="fa fa-times" aria-hidden="true"></i>
+                        <f:translate key="label.delete" />
                     </f:link.action>
 
                     <f:link.action
@@ -54,6 +56,7 @@
                             title="Restore backup"
                     >
                         <i class="fa fa-refresh" aria-hidden="true"></i>
+                        <f:translate key="label.restore" />
                     </f:link.action>
 
                     <a
@@ -63,6 +66,7 @@
                             class="btn btn-success checkFile"
                     >
                         <i class="fa fa-eye" aria-hidden="true"></i>
+                        <f:translate key="label.preview" />
                     </a>
                 </td>
             </tr>
@@ -77,7 +81,7 @@
                 controller="EditorModule"
                 class="btn btn-success"
         >
-            &lt; Back to list
+            <f:translate key="label.back" />
         </f:link.action>
     </div>
 

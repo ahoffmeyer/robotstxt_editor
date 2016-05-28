@@ -6,18 +6,18 @@
 <f:section name="Main">
     <br>
 
-    <h1>Edit your robots.txt</h1>
+    <h1><f:translate key="label.editor_headline" /></h1>
     <hr>
 
     <f:if condition="{createFile.0}">
         <f:then>
-            <p>No robots.txt in root directory. Do you want to create one?</p>
+            <p><f:translate key="label.no_file" /></p>
             <f:link.action
                     controller="EditorModule"
                     action="create"
                     class="btn btn-success"
             >
-                Create robots.txt
+                <f:translate key="label.label.create_file" />
             </f:link.action>
             <f:if condition="{createFile.1.files -> f:count()} > 0">
                 <strong>or</strong>
@@ -26,7 +26,7 @@
                         controller="BackupModule"
                         class="btn btn-info"
                 >
-                    Restore robots.txt backup
+                    <f:translate key="label.label.list_backups" />
                 </f:link.action>
             </f:if>
         </f:then>
@@ -41,7 +41,7 @@
 
                 <f:if condition="{settings.backup}">
                     <div class="backup pull-right">
-                        <label for="backup">Save backupfile</label>
+                        <label for="backup"><f:translate key="label.save_file" /></label>
                         <f:form.checkbox id="backup" value="1" name="backup" />
                     </div>
                 </f:if>
@@ -61,7 +61,8 @@
                             action="delete"
                             class="btn btn-danger"
                     >
-                        <i class="fa fa-times"></i> Delete robots.txt
+                        <i class="fa fa-times"></i>
+                        <f:translate key="label.delete_file" />
                     </f:link.action>
                 </div>
 
@@ -71,14 +72,16 @@
                             action="list"
                             class="btn btn-info"
                     >
-                        <i class="fa fa-list" aria-hidden="true"></i> List backups
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <f:translate key="label.list" />
                     </f:link.action>
                     <f:form.button
                             type="submit"
                             class="btn btn-success"
                             id="updateFile"
                     >
-                        <i class="fa fa-plus" aria-hidden="true"></i> Update robots.txt
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <f:translate key="label.update" />
                     </f:form.button>
                 </div>
             </f:form>
