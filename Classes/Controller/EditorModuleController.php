@@ -16,6 +16,7 @@ namespace AHoffmeyer\RobotstxtEditor\Controller;
  */
 
 use AHoffmeyer\RobotstxtEditor\Utility\EditorUtilityInterface;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -43,6 +44,16 @@ class EditorModuleController extends ActionController
      * @var EditorUtilityInterface
      */
     protected $editorUtility = null;
+
+    /**
+     * @var PageRenderer
+     */
+    protected $pageRenderer = null;
+
+    /**
+     * @var ObjectManager
+     */
+    protected $objectManager = null;
 
     /**
      * @param EditorUtilityInterface $editorUtility

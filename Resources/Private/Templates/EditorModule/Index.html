@@ -1,137 +1,123 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
-xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
-        <f:layout name="Backend" />
+<f:layout name="Backend" />
 
-        <f:section name="Main">
-                <br>
+<f:section name="Main">
+    <br>
 
-                <h1>Edit your robots.txt</h1>
-                <hr>
+    <h1>Edit your robots.txt</h1>
+    <hr>
 
-                <f:if condition="{createFile.0}">
-                        <f:then>
-                                <p>No robots.txt in root directory. Do you want to create one?</p>
-                                <f:link.action
-                                        controller="EditorModule"
-                                        action="create"
-                                        class="btn btn-success"
-                                >
-                                        Create robots.txt
-                                </f:link.action>
-                                <f:if condition="{createFile.1.files -> f:count()} > 0">
-                                        <strong>or</strong>
-                                        <f:link.action
-                                                action="list"
-                                                controller="BackupModule"
-                                                class="btn btn-info"
-                                        >
-                                                Restore robots.txt backup
-                                        </f:link.action>
-                                </f:if>
-                        </f:then>
-                        <f:else>
+    <f:if condition="{createFile.0}">
+        <f:then>
+            <p>No robots.txt in root directory. Do you want to create one?</p>
+            <f:link.action
+                    controller="EditorModule"
+                    action="create"
+                    class="btn btn-success"
+            >
+                Create robots.txt
+            </f:link.action>
+            <f:if condition="{createFile.1.files -> f:count()} > 0">
+                <strong>or</strong>
+                <f:link.action
+                        action="list"
+                        controller="BackupModule"
+                        class="btn btn-info"
+                >
+                    Restore robots.txt backup
+                </f:link.action>
+            </f:if>
+        </f:then>
+        <f:else>
 
-                                <f:form
-                                        action="update"
-                                        controller="EditorModule"
-                                        arguments="{contents: contents}"
-                                        method="POST"
-                                >
-                                        <div class="form-group">
-                                                <f:form.textarea
-                                                        id="robotstxt_editor"
-                                                        rows="10"
-                                                        name="contents"
-                                                        class="form-control"
-                                                        value="{contents -> f:format.raw()}"
-                                                >{contents -> f:format.raw()}</f:form.textarea>
-                                        </div>
+            <f:form
+                    action="update"
+                    controller="EditorModule"
+                    arguments="{contents: contents}"
+                    method="POST"
+            >
+                <div class="form-group">
+                    <f:form.textarea
+                            id="robotstxt_editor"
+                            name="contents"
+                            class="form-control"
+                            value="{contents -> f:format.raw()}"
+                    >{contents -> f:format.raw()}</f:form.textarea>
+                </div>
 
-                                        <f:link.action
-                                                controller="EditorModule"
-                                                action="delete"
-                                                class="btn btn-danger"
-                                        >
-                                                Delete robots.txt
-                                        </f:link.action>
+                <f:link.action
+                        controller="EditorModule"
+                        action="delete"
+                        class="btn btn-danger"
+                >
+                    Delete robots.txt
+                </f:link.action>
 
-                                        <f:link.action
-                                                controller="BackupModule"
-                                                action="list"
-                                                class="btn btn-info"
-                                        >
-                                                List robots.txt backups
-                                        </f:link.action>
-                                        <f:form.button
-                                                type="submit"
-                                                class="btn btn-success"
-                                                id="updateFile"
-                                        >
-                                                Update robots.txt
-                                        </f:form.button>
+                <f:link.action
+                        controller="BackupModule"
+                        action="list"
+                        class="btn btn-info"
+                >
+                    List robots.txt backups
+                </f:link.action>
+                <f:form.button
+                        type="submit"
+                        class="btn btn-success"
+                        id="updateFile"
+                >
+                    Update robots.txt
+                </f:form.button>
 
-                                        <f:if condition="{settings.backup}">
-                                                <div class="backup pull-right">
-                                                        <label for="backup">Save backupfile</label>
-                                                        <f:form.checkbox id="backup" value="1" name="backup" />
-                                                </div>
-                                        </f:if>
-                                </f:form>
-
-                                <f:render section="script" />
-                                <f:render section="style" />
-                        </f:else>
+                <f:if condition="{settings.backup}">
+                    <div class="backup pull-right">
+                        <label for="backup">Save backupfile</label>
+                        <f:form.checkbox id="backup" value="1" name="backup" />
+                    </div>
                 </f:if>
+            </f:form>
 
-        </f:section>
+            <f:render section="script" />
+        </f:else>
+    </f:if>
 
-        <f:section name="script">
-                <script>
-                        ;(function($) {
+</f:section>
 
-                                "use strict";
+<f:section name="script">
+    <script>
+        ;(function($) {
 
-                                var App = {
-                                        editor: $('#robotstxt_editor').val(),
+            "use strict";
 
-                                        init: function() {
-                                                this.clickButton();
-                                        },
+            var App = {
+                editor: $('#robotstxt_editor').val(),
 
-                                        trimRows: function() {
-                                                var rows = $('#robotstxt_editor').val().split("\n");
+                init: function() {
+                    this.clickButton();
+                },
 
-                                                return rows.map(function(row, index) {
-                                                        if (row) {
-                                                                return row.trim();
-                                                        }
-                                                });
-                                        },
+                trimRows: function() {
+                    var rows = $('#robotstxt_editor').val().split("\n");
 
-                                        clickButton: function() {
-                                                $('#updateFile').on('click', function() {
-                                                        $('#robotstxt_editor').val(this.trimRows().join("\n"));
-                                                }.bind(this));
-                                        }
-                                };
-
-                                App.init();
-
-                        })(TYPO3.jQuery);
-                </script>
-        </f:section>
-
-        <f:section name="style">
-                <style>
-                        #robotstxt_editor {
-                                line-height: 2rem;
-                                background: #e1e1e1;
-                                padding: 1rem;
+                    return rows.map(function(row, index) {
+                        if (row) {
+                            return row.trim();
                         }
-                        label {
-                                cursor: pointer;
-                        }
-                </style>
-        </f:section>
+                    });
+                },
+
+                clickButton: function() {
+                    $('#updateFile').on('click', function() {
+                        $('#robotstxt_editor').val(this.trimRows().join("\n"));
+                    }.bind(this));
+                }
+            };
+
+            App.init();
+
+        })(TYPO3.jQuery);
+    </script>
+</f:section>
+
 </html>
