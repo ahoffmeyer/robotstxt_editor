@@ -16,7 +16,6 @@
             "AHoffmeyer\\RobotstxtEditor\\": "Classes/"
         }
     },
-    "minimum-stability": "beta",
     "replace": {
         "robotstxt_editor": "self.version",
         "typo3-ter/robotstxt_editor": "self.version"
