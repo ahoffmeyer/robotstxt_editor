@@ -12,6 +12,8 @@ Using composer
 
 Then activate it via Extension Manager.
 
+If you don't have a composer installation of TYPO3 then simply install it via Extension Manager.
+
 Usage
 -----
 
