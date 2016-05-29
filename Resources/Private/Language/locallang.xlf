@@ -49,7 +49,7 @@
 				<source>Delete robots.txt</source>
 			</trans-unit>
 			<trans-unit id="label.save_file">
-				<source>Save backupfile</source>
+				<source>Save backupfile and click update</source>
 			</trans-unit>
 			<trans-unit id="label.no_file">
 				<source>No robots.txt in root directory. Do you want to create one?</source>
