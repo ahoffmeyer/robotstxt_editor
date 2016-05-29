@@ -22,7 +22,8 @@ If there is no robots.txt file on your document root, you can create one by clic
 
 Afterwards you can edit the contents of your robots.txt.
 
-Note: If you check **Save backupfile** a copy of the current robots.txt will be created and stored in the **robots.bak** folder.
+Note: If you check **Save backupfile** you have to click on **update robots.txt** afterwards.
+A copy of the current robots.txt will be created and stored in the **robots.bak** folder.
 You can change the backup folder by editing the setup.txt file of the extension.
 
 Backups
