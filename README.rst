@@ -42,6 +42,11 @@ Restore a backup file by simply clicking on **restore**
 
 This will create a backup file of the current robots.txt (with special filename) and set the backup file as new robots.txt into your document root.
 
+ToDo
+====
+* Creating MultiDomain robots.txt files and providing a proper .htaccess setting for this
+* Diff on backup previews and current robots.txt
+
 Author
 ======
 
