@@ -18,7 +18,9 @@ Usage
 -----
 
 The editor will take place under your **Admin Tools**.
-If there is no robots.txt file on your document root, you can create one by clicking on **Create robots.txt**
+If there is no robots.txt file in your document root, you can create one by clicking on **Create robots.txt**
+You can add a blueprint robots.txt as well. This is a predefined robots.txt file. After creating a blueprint you only have
+to adjust its contents.
 
 Afterwards you can edit the contents of your robots.txt.
 
