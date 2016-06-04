@@ -18,7 +18,7 @@ if (TYPO3_MODE === 'BE') {
 		'editorModule',
 		'',
 		array(
-			'EditorModule' => 'index, create, delete, update',
+			'EditorModule' => 'index, create, delete, update, createBlueprint',
 			'BackupModule' => 'list, remove, restore, check',
 		),
 		array(

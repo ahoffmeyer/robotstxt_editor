@@ -4,31 +4,45 @@
 <f:layout name="Backend" />
 
 <f:section name="Main">
-    <br>
-    <h1><f:translate key="label.editor_headline" /></h1>
-    <hr>
     <f:if condition="{createFile.0}">
         <f:then>
-            <p><f:translate key="label.no_file" /></p>
-            <f:link.action
-                    controller="EditorModule"
-                    action="create"
-                    class="btn btn-success"
-            >
-                <f:translate key="label.create_file" />
-            </f:link.action>
-            <f:if condition="{createFile.1.files -> f:count()} > 0">
-                <strong>or</strong>
+            <div class="editing-entry text-center">
+                <h1><f:translate key="label.editing_entry_headline" /></h1>
+                <p><f:translate key="label.editing_entry" /></p>
+                <p><f:translate key="label.no_file" /></p>
                 <f:link.action
-                        action="list"
-                        controller="BackupModule"
-                        class="btn btn-info"
+                        controller="EditorModule"
+                        action="create"
+                        class="btn btn-lg btn-success"
                 >
-                    <f:translate key="label.list_backups" />
+                    <f:translate key="label.create_file" />
                 </f:link.action>
-            </f:if>
+                <strong><f:translate key="label.or" /></strong>
+                <f:link.action
+                        controller="EditorModule"
+                        action="createBlueprint"
+                        class="btn btn-lg btn-info"
+                >
+                    <f:translate key="label.create_blueprint" />
+                </f:link.action>
+
+                <f:if condition="{createFile.1.files -> f:count()} > 0">
+                    <strong><f:translate key="label.or" /></strong>
+                    <f:link.action
+                            action="list"
+                            controller="BackupModule"
+                            class="btn btn-lg btn-warning"
+                    >
+                        <f:translate key="label.list_backups" />
+                    </f:link.action>
+                </f:if>
+            </div>
+
         </f:then>
         <f:else>
+            <br>
+            <h1><f:translate key="label.editor_headline" /></h1>
+            <hr>
 
             <f:form
                     action="update"
@@ -38,9 +52,22 @@
             >
 
                 <f:if condition="{settings.backup}">
-                    <div class="backup pull-right">
-                        <label for="backup"><f:translate key="label.save_file" /></label>
-                        <f:form.checkbox id="backup" value="1" name="backup" />
+                    <div class="top">
+                        <div class="pull-left">
+                            <f:link.action
+                                    controller="BackupModule"
+                                    action="list"
+                                    class="btn btn-info"
+                            >
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                <f:translate key="label.list" />
+                            </f:link.action>
+                        </div>
+                        <div class="backup pull-right">
+                            <label for="backup"><f:translate key="label.save_file" /></label>
+                            <f:form.checkbox id="backup" value="1" name="backup" />
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </f:if>
 
@@ -65,14 +92,6 @@
                 </div>
 
                 <div class="pull-right">
-                    <f:link.action
-                            controller="BackupModule"
-                            action="list"
-                            class="btn btn-info"
-                    >
-                        <i class="fa fa-list" aria-hidden="true"></i>
-                        <f:translate key="label.list" />
-                    </f:link.action>
                     <f:form.button
                             type="submit"
                             class="btn btn-success"

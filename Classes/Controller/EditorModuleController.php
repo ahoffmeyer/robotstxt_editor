@@ -101,6 +101,19 @@ class EditorModuleController extends ActionController
     }
 
     /**
+     * Function creates a blueprint version of your robots.txt file
+     * then you can simply change it to your needs afterwards
+     *
+     * @return mixed
+     */
+    public function createBlueprintAction()
+    {
+        $blueprint = GeneralUtility::getUrl(__DIR__ . '/Assets/blueprint.robots.txt');
+
+        return $this->createAction($blueprint);
+    }
+
+    /**
      * Delete robots.txt
      *
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException

@@ -13,7 +13,19 @@
 				<source>Edit your robots.txt</source>
 			</trans-unit>
 			<trans-unit id="label.create_file">
-				<source>Create robots.txt</source>
+				<source>Create a plain robots.txt</source>
+			</trans-unit>
+			<trans-unit id="label.editing_entry_headline">
+				<source>Create your robots.txt file</source>
+			</trans-unit>
+			<trans-unit id="label.editing_entry">
+				<source>Choose between plain file or a prefilled blueprint.</source>
+			</trans-unit>
+			<trans-unit id="label.create_blueprint">
+				<source>Create a blueprint robots.txt</source>
+			</trans-unit>
+			<trans-unit id="label.or">
+				<source>or</source>
 			</trans-unit>
 			<trans-unit id="label.list_backups">
 				<source>Restore robots.txt backup</source>
