@@ -15,16 +15,16 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'A simple robots.txt editor as TYPO3 backend module.',
 	'category' => 'module',
 	'author' => 'Andreas Hoffmeyer',
-	'author_email' => 'hallo@andreas-hoffmeyer.de',
+	'author_email' => 'hallo@andreas-hoffmeyer.me',
 	'state' => 'beta',
 	'internal' => '',
 	'uploadfolder' => '0',
 	'createDirs' => '',
 	'clearCacheOnLoad' => 0,
-	'version' => '0.2.0',
+	'version' => '0.3.0',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '7.6.0-7.6.99',
+			'typo3' => '7.6.0-8.7.99',
 		),
 		'conflicts' => array(
 		),
