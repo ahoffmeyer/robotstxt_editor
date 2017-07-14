@@ -69,6 +69,21 @@
 			<trans-unit id="label.backup_deleted" approved="yes">
 				<source>File %s was deleted from system</source>
 			</trans-unit>
+			<trans-unit id="settings.cssFile" approved="yes">
+				<source>Path to stylesheet override</source>
+			</trans-unit>
+			<trans-unit id="settings.backup" approved="yes">
+				<source>If true it is possible to backup the robots.txt file</source>
+			</trans-unit>
+			<trans-unit id="settings.backup_path" approved="yes">
+				<source>Backup folder</source>
+			</trans-unit>
+			<trans-unit id="settings.list.showModificationTime" approved="yes">
+				<source>Show modification time of robots.txt file in archive</source>
+			</trans-unit>
+			<trans-unit id="settings.list.timeFormat" approved="yes">
+				<source>Define the time format for the modification time in archive view</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

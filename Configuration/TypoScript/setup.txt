@@ -2,14 +2,14 @@
  # Module configuration
 module.tx_robotstxteditor {
 	settings {
-        cssFile = Stylesheet/main.css
+        cssFile = {$module.tx_robotstxteditor.settings.cssFile}
         // add checkbox to backup file
-        backup = 1
-        backup_path = robots.bak/
+        backup = {$module.tx_robotstxteditor.settings.backup}
+        backup_path = {$module.tx_robotstxteditor.settings.backup_path}
 
         list {
-            showModificationTime = 1
-            timeFormat = H:i:s - d.m.y
+            showModificationTime = {$module.tx_robotstxteditor.settings.list.showModificationTime}
+            timeFormat = {$module.tx_robotstxteditor.settings.list.timeFormat}
         }
     }
 }

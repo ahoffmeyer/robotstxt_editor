@@ -1,0 +1,19 @@
+# Module configuration
+module.tx_robotstxteditor {
+    settings {
+        # cat=tx_robotstxteditor/010; type=string; label=LLL:EXT:robotstxt_editor/Resources/Private/Language/locallang.xlf:settings.cssFile
+        cssFile = Stylesheet/main.css
+        // add checkbox to backup file
+        # cat=tx_robotstxteditor/020; type=boolean; label=LLL:EXT:robotstxt_editor/Resources/Private/Language/locallang.xlf:settings.backup
+        backup = 1
+        # cat=tx_robotstxteditor/030; type=string; label=LLL:EXT:robotstxt_editor/Resources/Private/Language/locallang.xlf:settings.backup_path
+        backup_path = robots.bak/
+
+        list {
+            # cat=tx_robotstxteditor/040; type=boolean; label=LLL:EXT:robotstxt_editor/Resources/Private/Language/locallang.xlf:settings.list.showModificationTime
+            showModificationTime = 1.list
+            # cat=tx_robotstxteditor/050; type=string; label=LLL:EXT:robotstxt_editor/Resources/Private/Language/locallang.xlf:settings.list.timeFormat
+            timeFormat = H:i:s - d.m.y
+        }
+    }
+}
