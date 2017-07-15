@@ -42,12 +42,13 @@ class EditorModuleController extends ActionController
     /**
      * @var EditorUtilityInterface
      */
-    protected $editorUtility = null;
+    protected $editorUtility;
 
     /**
+     * EditorModuleController constructor.
      * @param EditorUtilityInterface $editorUtility
      */
-    public function injectEditorUtilityInterface(EditorUtilityInterface $editorUtility)
+    public function __construct(EditorUtilityInterface $editorUtility)
     {
         $this->editorUtility = $editorUtility;
     }
