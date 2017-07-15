@@ -3,7 +3,7 @@
     "description": "A simple robots.txt editor as TYPO3 backend module",
     "type": "typo3-cms-extension",
     "license": "GPL-2.0+",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "keywords": ["TYPO3", "Extension", "SEO"],
     "authors": [
         {
