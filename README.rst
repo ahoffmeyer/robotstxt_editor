@@ -52,8 +52,8 @@ Author
 
 Any questions or pull requests don't hesitate:
 
-Andreas Hoffmeyer <hallo@andreas-hoffmeyer.de>
+Andreas Hoffmeyer <hallo@andreas-hoffmeyer.me>
 
 GitHub: https://github.com/ahoffmeyer/robotstxt_editor
 
-Website https://www.andreas-hoffmeyer.de
+Website https://www.andreas-hoffmeyer.me
